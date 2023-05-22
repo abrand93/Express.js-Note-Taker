@@ -4,6 +4,7 @@ const app = express()
  const PORT = 3001
  const path = require('path')
  const fs = require('fs')
+ const uniqid = require('uniqid')
 
 
 
@@ -31,6 +32,7 @@ if(title && text){
 const newNote = {
   title,
   text,
+  id: uniqid()
 }
 fs.readFile('./db/db.json', 'utf-8',(err,data) =>{
   if (err){console.error(err)
