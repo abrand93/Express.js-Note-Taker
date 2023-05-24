@@ -19,22 +19,26 @@ app.use(express.urlencoded({extended: true}))
 
 app.get('/notes', (req, res) =>{
   res.sendFile(path.join(__dirname,'./public/notes.html'))
+//  console.log(notesdb)
 });
 
 
 
-app.get('*', (req, res) =>{
+app.get('/', (req, res) =>{
   res.sendFile(path.join(__dirname,'/public/index.html'))
 });
 
 
 app.get('/api/notes', (req, res) =>{
+ res.json(notesdb)
 
-     res.json(notesdb)
+
+    
 })
 
 app.post('/api/notes', (req,res) =>{
-const {title, text} = req.body
+  // res.json(notesdb)
+const {title, text,  } = req.body
 if(title && text){
 const newNote = {
   title,
@@ -48,12 +52,14 @@ fs.readFile('./db/db.json', 'utf-8',(err,data) =>{
   
  
 
-  parsedNote.push(newNote)
+  notesdb.push(newNote)
 
-const noteString = JSON.stringify(newNote)
+ const noteString = JSON.stringify(newNote)
 
-fs.writeFile('./db/db.json', JSON.stringify(parsedNote,null, 4), (err) => err ? console.error(err): console.log("It worked "))
+fs.writeFile('./db/db.json', JSON.stringify(parsedNote,null, 4), (err) => err ? console.error(err): console.log("It worked ", notesdb))
+res.json(notesdb)
 }
+
 })
 }
 })
