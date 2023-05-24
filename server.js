@@ -24,14 +24,15 @@ app.get('/notes', (req, res) =>{
 
 
 
-app.get('/', (req, res) =>{
-  res.sendFile(path.join(__dirname,'/public/index.html'))
-});
+
 
 
 app.get('/api/notes', (req, res) =>{
  res.json(notesdb)
 
+ app.get('*', (req, res) =>{
+  res.sendFile(path.join(__dirname,'/public/index.html'))
+});
 
     
 })
@@ -52,18 +53,19 @@ fs.readFile('./db/db.json', 'utf-8',(err,data) =>{
   
  
 
-  notesdb.push(newNote)
+    parsedNote.push(newNote)
+    notesdb.push(newNote)
 
  const noteString = JSON.stringify(newNote)
 
-fs.writeFile('./db/db.json', JSON.stringify(parsedNote,null, 4), (err) => err ? console.error(err): console.log("It worked ", notesdb))
+fs.writeFile('./db/db.json', JSON.stringify(parsedNote,null, 4), (err) => err ? console.error(err): console.log("It worked ",))
+// notesdb.push(newNote)
 res.json(notesdb)
 }
 
 })
 }
 })
-
 
 
 
