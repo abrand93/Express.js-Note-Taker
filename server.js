@@ -5,6 +5,7 @@ const app = express()
  const path = require('path')
  const fs = require('fs')
  const uniqid = require('uniqid')
+ const routes = require('./public/assets/js/routes')
 
 
 
